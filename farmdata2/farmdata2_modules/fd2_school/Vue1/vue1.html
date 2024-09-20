@@ -24,12 +24,14 @@
         <input type="date" id="reportStartDate" v-model="reportStartDate"
                 min = "2014-01-01" max="2022-01-01"
                 value = "2020-05-05">
+        <p> Selected Start Date: {{ reportStartDate }}</p>       
     </li>
     <li>
         <label for="reportEndDate">End:</label>
         <input type="date" id="reportEndDate" v-model="reportEndDate"
                 min = "2020-05-05" max="2022-01-01"
                 value = "2020-05-15">
+        <p>Selected End Date: {{reportEndDate }}</p>        
     </li>
     <li>
         <label for="reportCrop">Crop:</label>
@@ -38,6 +40,7 @@
             <option value="kale">Kale</option>
             <option value="peas">Peas</option>
         </select>
+        <p> Selected Crop: {{reportCrop }}</p>
     </li>
     <li>
         <label for="reportField">Area:</label>
@@ -63,11 +66,18 @@
     </thead>
     <tbody>
         <tr v-for = "(row, index) in reportData" :key="index">
-            <td>{{ row.date }}</td>
-            <td>{{ row.area }}</td>
-            <td>{{ row.crop }}</td>
-            <td>{{ row.yield }}</td>
-            <td>{{ row.units }}</td>
+            <td>05/02/2018</td>
+            <td>Chau-1</td>
+            <td>Kale</td>
+            <td>7</td>
+            <td>Bunches</td>
+        </tr>
+        <tr>
+            <td>05/05/2018</td>
+            <td>SQ7</td>
+            <td>Kale</td>
+            <td>29</td>
+            <td>Bunches</td>
         </tr>
     </tbody>
 </table>
@@ -79,16 +89,13 @@
         data:{
             reportTitle: 'My Sample Harvest Report',
             reportFarm: 'Sample Farm',
-                reportUser: 'manager1',
-                reportLanguage: 'English',
-                reportStartDate: '2020-05-05',
-                reportEndDate: '2020-05-15',
-                reportCrop: 'kale',
-                reportArea: 'all',
-                reportData: [
-                    { date: '05/02/2018', area: 'Chuau-1', crop: 'Kale', yield: 7, units: 'Bunches' },
-                    { date: '05/05/2018', area: 'SQ7', crop: 'Kale', yield: 29, units: 'Bunches' }
-                ]
+            reportUser: 'manager1',
+            reportLanguage: 'English',
+            reportStartDate: '2020-05-05',
+            reportEndDate: '2020-05-15',
+            reportCrop: 'kale',
+            minDate: '2014-01-01',
+            maxDate: '2022-01-01',
             },
 
         });

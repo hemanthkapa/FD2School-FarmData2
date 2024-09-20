@@ -1,0 +1,98 @@
+
+<h1> Harvest Report</h1>
+
+<p> This page is a <em>mockup</em> of a simplified harvest report.</p>
+
+<hr>
+
+<div id="app" v-cloak>
+    <h1>{{ reportTitle || 'My Sample Harvest Report'}}</h1>
+
+    <label for="reportTitle">Title:</label>
+<input type="text" id="reportTitle" placeholder="Enter report title">
+
+<p>Details: </p>
+<ul>
+    <li><strong>Farm:</strong>{{ reportFarm || 'Sample Farm'}}</li>
+    <li><strong>User:</strong>{{ reportUser || 'manager1'}}</li>
+    <li><strong>Language:</strong>{{ reportLanguage || 'English'}}</li>
+</ul>
+<br>
+<ul>
+    <li>
+        <label for="reportStartDate">Start:</label>
+        <input type="date" id="reportStartDate" v-model="reportStartDate"
+                min = "2014-01-01" max="2022-01-01"
+                value = "2020-05-05">
+    </li>
+    <li>
+        <label for="reportEndDate">End:</label>
+        <input type="date" id="reportEndDate" v-model="reportEndDate"
+                min = "2020-05-05" max="2022-01-01"
+                value = "2020-05-15">
+    </li>
+    <li>
+        <label for="reportCrop">Crop:</label>
+        <select id="reportCrop" v-model="reportCrop">
+            <option value="broccoli">Broccoli</option>
+            <option value="kale">Kale</option>
+            <option value="peas">Peas</option>
+        </select>
+    </li>
+    <li>
+        <label for="reportField">Area:</label>
+        <select id="field" v-model="reportField">
+            <option value="all" selected> All</option>
+            <option value="chuau-1">Chuau-1</option>
+            <option value="sq7">SQ7</option>
+        </select>
+    </li>
+</ul>
+
+<button> Generate Report</button>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th> Date </th>
+            <th>Area</th>
+            <th>Crop</th>
+            <th>Yield</th>
+            <th>Units</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for = "(row, index) in reportData" :key="index">
+            <td>{{ row.date }}</td>
+            <td>{{ row.area }}</td>
+            <td>{{ row.crop }}</td>
+            <td>{{ row.yield }}</td>
+            <td>{{ row.units }}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data:{
+            reportTitle: 'My Sample Harvest Report',
+            reportFarm: 'Sample Farm',
+                reportUser: 'manager1',
+                reportLanguage: 'English',
+                reportStartDate: '2020-05-05',
+                reportEndDate: '2020-05-15',
+                reportCrop: 'kale',
+                reportArea: 'all',
+                reportData: [
+                    { date: '05/02/2018', area: 'Chuau-1', crop: 'Kale', yield: 7, units: 'Bunches' },
+                    { date: '05/05/2018', area: 'SQ7', crop: 'Kale', yield: 29, units: 'Bunches' }
+                ]
+            },
+
+        });
+    
+</script>
+</body>
+</html>

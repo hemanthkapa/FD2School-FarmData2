@@ -65,12 +65,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(row, index) in reportData" :key="index">
-                    <td>{{ row.date }}</td>
-                    <td>{{ row.area }}</td>
-                    <td>{{ row.crop }}</td>
-                    <td>{{ row.yield }}</td>
-                    <td>{{ row.units }}</td>
+                <tr v-for="log in harvestLogs" :key="log.date + log.area + log.crop">
+                    <td>{{ log.date }}</td>
+                    <td>{{ log.area }}</td>
+                    <td>{{ log.crop }}</td>
+                    <td>{{ log.yield }}</td>
+                    <td>{{ log.units }}</td>
                 </tr>
             </tbody>
         </table>
@@ -100,9 +100,10 @@
                     { value: 'chuau-1', label: 'Chuau-1' },
                     { value: 'sq7', label: 'SQ7' }
                 ],
-                reportData: [
-                    { date: '05/02/2018', area: 'Chau-1', crop: 'Kale', yield: 7, units: 'Bunches' },
-                    { date: '05/05/2018', area: 'SQ7', crop: 'Kale', yield: 29, units: 'Bunches' }
+                harvestLogs: [
+                    {date: "2018-05-02", area: "Chuau-1", crop: "Kale", yield: 10, units: "Bunches"},
+                    {date: "2018-05-05", area: "SQ7", crop: "Broccoli", yield: 15, units: "Kg"},
+                    {date: "2018-05-07", area: "Chuau-1", crop: "Peas", yield: 20, units: "Lbs"}
                 ]
             }
         });

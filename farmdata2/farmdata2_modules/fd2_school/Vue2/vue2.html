@@ -53,7 +53,7 @@
                 <p>Selected Area: {{ reportField }}</p>
             </li>
         </ul>
-        <button @click='harvestLogs.push({"date": "2018-05-01", "area" : "Orion-3", "crop" : "Carrots", "yield" :"3", "units": "Buckets" })'>Generate Report</button>
+        <button @click='generateReport'>Generate Report</button>
         <table border="1">
             <thead>
                 <tr>
@@ -101,7 +101,18 @@
                     { value: 'sq7', label: 'SQ7' }
                 ],
                 harvestLogs: [
-                ]
+                ],
+                methods: {
+                    generateReport: function (){
+                        this.harvestLogs.push({
+                            "date": "2018-05-01",
+                            "area": "Orion-3",
+                            "crop": "Carrots",
+                            "yield": 3,
+                            "units": "Buckets"
+                        });
+                    }
+                }
             }
         });
         Vue.config.devtools = true;

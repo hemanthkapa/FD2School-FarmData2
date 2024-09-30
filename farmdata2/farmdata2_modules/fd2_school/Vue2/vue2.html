@@ -57,6 +57,7 @@
         <table border="1">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Date</th>
                     <th>Area</th>
                     <th>Crop</th>
@@ -65,7 +66,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="log in harvestLogs" :key="log.date + log.area + log.crop">
+                <tr v-for="(log, index) in harvestLogs" :key="log.date + log.area + log.crop">
+                    <td>{{index + 1}}</td>
                     <td>{{ log.date }}</td>
                     <td>{{ log.area }}</td>
                     <td>{{ log.crop }}</td>
@@ -76,46 +78,51 @@
         </table>
     </div>
     <script src="https://unpkg.com/vue@2"></script>
-    <script>
-        var app = new Vue({
-            el: '#app',
-            data: {
-                reportTitle: '',
-                reportFarm: 'Sample Farm',
-                reportUser: 'manager1',
-                reportLanguage: 'English',
-                reportStartDate: '2020-05-05',
-                reportEndDate: '2020-05-15',
-                reportCrop: 'kale',
-                reportField: 'all',
-                minDate: '2014-01-01',
-                maxDate: '2022-01-01',
-                crops: [
-                    { value: 'broccoli', label: 'Broccoli' },
-                    { value: 'kale', label: 'Kale' },
-                    { value: 'peas', label: 'Peas' }
-                ],
-                fields: [
-                    { value: 'all', label: 'All' },
-                    { value: 'chuau-1', label: 'Chuau-1' },
-                    { value: 'sq7', label: 'SQ7' }
-                ],
-                harvestLogs: [
-                ],
-                methods: {
-                    generateReport: function (){
-                        this.harvestLogs.push({
-                            "date": "2018-05-01",
-                            "area": "Orion-3",
-                            "crop": "Carrots",
-                            "yield": 3,
-                            "units": "Buckets"
-                        });
-                    }
-                }
+    <script src="https://unpkg.com/vue@2"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            reportTitle: '',
+            reportFarm: 'Sample Farm',
+            reportUser: 'manager1',
+            reportLanguage: 'English',
+            reportStartDate: '2020-05-05',
+            reportEndDate: '2020-05-15',
+            reportCrop: 'kale',
+            reportField: 'all',
+            minDate: '2014-01-01',
+            maxDate: '2022-01-01',
+            crops: [
+                { value: 'broccoli', label: 'Broccoli' },
+                { value: 'kale', label: 'Kale' },
+                { value: 'peas', label: 'Peas' }
+            ],
+            fields: [
+                { value: 'all', label: 'All' },
+                { value: 'chuau-1', label: 'Chuau-1' },
+                { value: 'sq7', label: 'SQ7' }
+            ],
+            harvestLogs: []
+        },
+        computed: {
+            displayTitle: function() {
+                return this.reportTitle || 'My Sample Harvest Report';
             }
-        });
-        Vue.config.devtools = true;
-    </script>
+        },
+        methods: {
+            generateReport: function() {
+                this.harvestLogs.push({
+                    "date": "2018-05-01",
+                    "area": "Orion-3",
+                    "crop": "Carrots",
+                    "yield": 3,
+                    "units": "Buckets"
+                });
+            }
+        }
+    });
+    Vue.config.devtools = true;
+</script>
 </body>
 </html>

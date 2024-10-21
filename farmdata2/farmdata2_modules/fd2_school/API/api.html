@@ -79,10 +79,11 @@
             </table>
         </div>
         <div v-else>
-        <p> No matching records found. </p>
+            <p> No matching records found. </p>
         </div>
     </div>
     <script src="https://unpkg.com/vue@2"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <script>
         var app = new Vue({
@@ -112,22 +113,25 @@
             },
             computed: {
                 displayTitle: function() {
-                return this.reportTitle || 'My Sample Harvest Report';
+                    return this.reportTitle || 'My Sample Harvest Report';
                 }
             },
             methods: {
                 generateReport: function() {
+                    axios.get('/farm.json')
+                        .then((response) => {
+                        
 
-                    this.reportFarm = "Sample Farm";
-                    this.reportUser = "manager1";
-                    this.reportLanguage = "English";
-                    this.harvestLogs.push({
-                        "date": "2018-05-01",
-                        "area": "Orion-3",
-                        "crop": "Carrots",
-                        "yield": 3,
-                        "units": "Buckets"
-                    });
+                            // Set farm details from the response data
+                            this.reportFarm = response.data.name;
+                            this.reportUser = response.data.user.name;
+                            this.reportLanguage = response.data.user.language;
+
+                            
+                            this.harvestLogs = response.data;
+                        })
+                       
+                        
                 }
             }
         });

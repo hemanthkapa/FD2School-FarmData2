@@ -37,8 +37,8 @@
             <li>
                 <label for="reportCrop">Crop:</label>
                 <select id="reportCrop" v-model="reportCrop">
-                    <option v-for="crop in crops" :key="crop.value" :value="crop.value">
-                        {{ crop.label }}
+                    <option v-for="cropName in cropNames" :key="cropName" :value="cropName">
+                        {{ cropName }}
                     </option>
                 </select>
                 <p>Selected Crop: {{ reportCrop }}</p>
@@ -99,23 +99,31 @@
                 reportField: 'all',
                 minDate: '2014-01-01',
                 maxDate: '2022-01-01',
-                crops: [
-                    { value: 'broccoli', label: 'Broccoli' },
-                    { value: 'kale', label: 'Kale' },
-                    { value: 'peas', label: 'Peas' }
-                ],
                 fields: [
                     { value: 'all', label: 'All' },
                     { value: 'chuau-1', label: 'Chuau-1' },
                     { value: 'sq7', label: 'SQ7' }
                 ],
-                harvestLogs: []
+                harvestLogs: [],
+                idToCropMap: new Map() 
             },
             computed: {
-                displayTitle: function() {
-                    return this.reportTitle || 'My Sample Harvest Report';
+                cropNames: function() {
+                    return Array.from(this.idToCropMap.values());
                 }
             },
+            created(){
+          console.log("HarvestReport Vue instance created!");
+          getIDToCropMap()
+            .then((theMap) => {
+              this.idToCropMap=theMap;
+              console.log("crop map loaded:",this.idToCropMap);
+            })
+            .catch((err)=> {
+              console.log("Error fetching crop map",error);
+            });
+            
+        },
             methods: {
                 generateReport: function() {
                     axios.get('/farm.json')

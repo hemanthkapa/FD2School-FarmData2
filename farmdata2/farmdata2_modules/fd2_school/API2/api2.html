@@ -113,25 +113,26 @@
         result: [],
     },
     computed: {
-        cropNames: function() {
-            return Array.from(this.idToCropMap.values());
-        },
-        harvestReportRows() {
-	let tableRows = []
-	for(let log of this.harvestLogs) {
-        
-		let tableRow = {
-			date: dayjs.unix(log.timestamp).format('YYYY-MM-DD'),
-            area: log.area[0].name,
-            crop: this.idToCropMap.get(log.data.crop_tid),
-            yield: log.quantity[0].value,
-            units:log.quantity[0].unit.name,
-		}
-		tableRows.push(tableRow)
-	}
-	return tableRows
-    }
+    cropNames: function() {
+        return Array.from(this.idToCropMap.values());
     },
+    harvestReportRows() {
+        let tableRows = []
+        for(let log of this.harvestLogs) {
+            if(this.idToCropMap.get(log.data.crop_tid) === this.reportCrop) {
+                let tableRow = {
+                    date: dayjs.unix(log.timestamp).format('YYYY-MM-DD'),
+                    area: log.area[0].name,
+                    crop: this.idToCropMap.get(log.data.crop_tid),
+                    yield: log.quantity[0].value,
+                    units: log.quantity[0].unit.name
+                }
+                tableRows.push(tableRow)
+            }
+        }
+        return tableRows
+    }
+},
     created() {
         console.log("HarvestReport Vue instance created!");
         getIDToCropMap()
@@ -178,7 +179,8 @@
                 });
         }
     }
-});
+}
+);
 
         Vue.config.devtools = true;
     </script>

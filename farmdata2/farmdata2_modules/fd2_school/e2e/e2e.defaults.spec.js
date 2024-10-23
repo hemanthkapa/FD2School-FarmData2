@@ -15,4 +15,35 @@ describe("Test the harvest report default values", () => {
         cy.get("[data-cy=end-date]")
             .should("have.value", "2020-05-15")
     })
+
+    it("Check the crop dropdown contents", () => {
+        // Check first crop (index 0)
+        cy.get("[data-cy=crop-select]")
+            .children()
+            .eq(0)
+            .invoke('text')
+            .then(text => text.trim())
+            .should('eq', 'ARUGULA')
+        
+        // Check fifth crop (index 4)
+        cy.get("[data-cy=crop-select]")
+            .children()
+            .eq(4)
+            .invoke('text')
+            .then(text => text.trim())
+            .should('eq', 'BEAN-FAVA')
+        
+        // Check last crop
+        cy.get("[data-cy=crop-select]")
+            .children()
+            .then($children => {
+                const lastIndex = $children.length - 1
+                cy.get("[data-cy=crop-select]")
+                    .children()
+                    .eq(lastIndex)
+                    .invoke('text')
+                    .then(text => text.trim())
+                    .should('eq', 'ZUCCHINI')  // Note: We may need to verify this value too
+            })
+    })
 })

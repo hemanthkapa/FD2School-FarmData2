@@ -37,7 +37,7 @@
             </li>
             <li>
                 <label for="reportCrop">Crop:</label>
-                <select id="reportCrop" v-model="reportCrop">
+                <select id="reportCrop" data-cy="crop-select" v-model="reportCrop">
                     <option v-for="cropName in cropNames" :key="cropName" :value="cropName">
                         {{ cropName }}
                     </option>
